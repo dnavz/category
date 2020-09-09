@@ -5,7 +5,7 @@ metadata:
     app: category
     servicefor: category
   name: category
-  namespace: [student-name]
+  namespace: epsilon
 spec:
   replicas: 1
   selector:
@@ -20,11 +20,18 @@ spec:
         servicefor: category
     spec:
       containers:
-      - image: [docker-username]/category:[tag]
+      - image: dnavz/category:distributed
         imagePullPolicy: Always
         name: category
         ports:
           - containerPort: 8080
+        resources:
+          requests:
+            memory: 600Mi
+            cpu: 0.25
+          limits:
+            memory: 900Mi
+            cpu: 1
         env:
           - name: SPRING_DATA_MONGODB_URI
             value: mongodb://mongo:27017/dev
